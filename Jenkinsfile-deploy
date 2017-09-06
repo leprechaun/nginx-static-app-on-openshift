@@ -41,7 +41,7 @@ pipeline {
       steps {
         sh "oc run nginx-static-app-e2e-test-${env.DEPLOY_BUILD_NUMBER} --restart=Never --image=172.30.1.1:5000/myproject/nginx-static-app-selenium-python:${env.DEPLOY_GIT_COMMIT} --env BASE_URL=nginx-static-app,SELENIUM_HUB_HOST=selenium-hub:4444,DEPLOY_BUILD_NUMBER=${env.DEPLOY_BUILD_NUMBER},DEPLOY_GIT_COMMIT=${env.DEPLOY_GIT_COMMIT}"
         sh "sleep 60"
-        sh "oc logs -f nginx-static-app-e3e-test-${env.DEPLOY_BUILD_NUMBER}"
+        sh "oc logs -f nginx-static-app-e2e-test-${env.DEPLOY_BUILD_NUMBER}"
       }
 
     }

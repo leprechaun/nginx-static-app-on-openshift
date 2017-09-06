@@ -86,7 +86,33 @@ pipeline {
       }
     }
 
+    stage("Run some kind of test or whatever") {
+      steps {
+        echo "All is good!"
+      }
+    }
+
     /*
+    stage("Trigger a deploy in E2E"){
+      steps{
+        script {
+          def shortCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(8)
+          openshiftBuild(
+            bldCfg: 'nginx-static-app-deploy-pipeline',
+            showBuildLogs: 'true',
+            commit: shortCommit,
+            env : [
+              [ name : 'DEPLOY_BUILD_NUMBER', value : "${env.BUILD_NUMBER}" ],
+              [ name : 'DEPLOY_GIT_COMMIT', value : shortCommit ],
+              [ name : 'DEPLOY_NAMESPACE', value : "myproject" ],
+              [ name : 'DEPLOY_NAME', value : "an-extra-env" ]
+            ]
+          )
+        }
+      }
+    }
+
+
     stage("Deploy: Testing ENV") {
       steps {
         script {
